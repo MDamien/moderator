@@ -8,7 +8,7 @@ def home(request):
 		return redirect(serie)
 	return render(request,'series/home.html',{'series':Serie.objects.all()})
 
-def serie_view(request, serie_id):
+def serie(request, serie_id):
 	serie = Serie.objects.get(id=serie_id)
 	if request.method == 'POST':
 		topic = Topic(name=request.POST.get('name'), serie=serie)
@@ -16,7 +16,7 @@ def serie_view(request, serie_id):
 		return redirect(topic)
 	return render(request,'series/serie.html',{'serie':serie})
 
-def topic_view(request, topic_id):
+def topic(request, topic_id):
 	topic = Topic.objects.get(id=topic_id)
 	if request.method == 'POST':
 		submission = Submission(text=request.POST.get('name'), topic=topic)
@@ -24,10 +24,17 @@ def topic_view(request, topic_id):
 		return redirect(submission)
 	return render(request,'series/topic.html',{'topic':topic})
 
-def submission_view(request, submission_id):
+def submission(request, submission_id):
 	submission = Submission.objects.get(id=submission_id)
 	if request.method == 'POST':
 		response = Response(text=request.POST.get('name'), submission=submission)
 		response.save()
 		return redirect(response)
 	return render(request,'series/submission.html',{'submission':submission})
+
+def submission_vote(request, submission_id):
+	submission = Submission.objects.get(id=submission_id)
+	value = 1 if request.POST.get('up') else -1
+	value = Vote(submission=submission, value=value)
+	value.save()
+	return redirect(submission)

@@ -14,4 +14,9 @@
 <li>{{ response.text }}</li>
 {% endfor %}
 </ul>
+<ul>
+{% for vote in submission.vote_set.all %}
+<li>{{ vote }}</li>
+{% endfor %}
+</ul>
 {% endblock %}

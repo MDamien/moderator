@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block  body %}
-<h1>{{ topic.serie.name }}</h1>
-<h2>{{ topic.name }}</h2>
+<h1><a href="{{ topic.serie.get_absolute_url }}">{{ topic.serie.name }}</a></h1>
+<h2><a href="{{ topic.get_absolute_url }}">{{ topic.name }}</a></h2>
 <form action="" method="post">
 {% csrf_token %}
 <textarea name="name"></textarea>
@@ -10,7 +10,14 @@
 </form>
 <ul>
 {% for submission in topic.submission_set.all %}
-<li>{{ submission }}</li>
+<li>
+<a href="{{ submission.get_absolute_url }}">{{ submission.text }}</a>
+<form method="post" action="{{ submission.get_vote_url }}">
+{% csrf_token %}
+<input type="submit" name="up" value="up"/>
+<input type="submit" name="down" value="down"/>
+</form>
+</li>
 {% endfor %}
 </ul>
 {% endblock %}
