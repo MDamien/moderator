@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block  body %}
+<h1>{{ serie.name }}</h1>
+<form action="" method="post">
+{% csrf_token %}
+<input type="text" placeholder="New topic" name="name"/>
+<input type="submit"/>
+</form>
+<ul>
+{% for topic in serie.topic_set.all %}
+<li>{{ topic.name }}</li>
+{% endfor %}
+</ul>
+{% endblock %}

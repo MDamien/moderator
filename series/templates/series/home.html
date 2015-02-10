@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block  body %}
+<form action="" method="post">
+{% csrf_token %}
+<input type="text" placeholder="Serie" name="name"/>
+<input type="submit"/>
+</form>
+<ul>
+{% for serie in series %}
+<li>{{ serie }}</li>
+{% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block  body %}
+<h1>{{ topic.serie.name }}</h1>
+<h2>{{ topic.name }}</h2>
+<form action="" method="post">
+{% csrf_token %}
+<textarea name="name"></textarea>
+<input type="submit"/>
+</form>
+<ul>
+{% for submission in topic.submission_set.all %}
+<li>{{ submission }}</li>
+{% endfor %}
+</ul>
+{% endblock %}
